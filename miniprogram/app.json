@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/index/index",
+    "pages/classification/index/index",
+    "pages/classification/addtype/addtype",
+    "pages/classification/sublist/sublist",
+    "pages/classification/subclassification/subclassification",
+    "pages/classification/addsubclassification/addsubclassification",
+    "pages/classification/subadd/subadd",
+    "pages/mine/index/index",
+    "pages/mine/add/add"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "护巡助手",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom",
+    "my-scroll": "/components/mescroll/my-scroll"
+  },
+  "cloud": true,
+  "sitemapLocation": "sitemap.json"
+}

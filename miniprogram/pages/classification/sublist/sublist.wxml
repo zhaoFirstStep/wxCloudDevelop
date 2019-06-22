@@ -1,0 +1,173 @@
+<wxs module="filter" src="./option.wxs"></wxs>
+<cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">详细</view>
+</cu-custom>
+<scroll-view scroll-x class="bg-white nav text-center fixed" style="top:{{CustomBar}}px">
+  <view class="cu-item {{0==TabCur?'text-pink cur':''}}" bindtap="tabSelect" data-id="0">
+    <text class="cuIcon-camerafill"></text> 使用
+  </view>
+  <view class="cu-item {{1==TabCur?'text-pink cur':''}}" bindtap="tabSelect" data-id="1">
+    <text class="cuIcon-clothesfill"></text> 保养/维修
+  </view>
+</scroll-view>
+
+<block wx:if="{{0==TabCur}}">
+<my-scroll top="5" down="{{filter.getDownOption(0)}}" up="{{(filter.getUpOption())}}" binddown="downCallback" bindup="upCallback" bindinit="mescrollInit0" bindemptyclick="emptyClick">
+<view class="cu-timeline">
+<block wx:for="{{tab0.list}}" wx:for-index="index" wx:for-item="list" wx:key>
+   <view class="cu-time" wx:if="{{TabCur==1}}">{{list.inspectionDate}}</view>
+   <view class="cu-time" wx:if="{{TabCur==0}}">{{list.useDate}}</view>
+  <view class="cu-item {{index == 0?'text-blue':''}}">
+    <view class="content {{list.hasError?'redShowdon':''}}">
+      <view class="cu-capsule radius">
+        <view class='cu-tag bg-cyan'>{{list.name}}</view>
+        <view class="cu-tag line-cyan" wx:if="{{TabCur==1}}">{{list.inspectionTime}}</view>
+       <view class="cu-tag line-cyan" wx:if="{{TabCur==0}}">{{list.useStartTime}}~{{list.useEndTime}}</view>
+      </view>
+      <block wx:if="{{list.list.length>0}}">
+       <view class="cu-capsule radius" 
+       wx:for="{{list.list}}" wx:for-index="index" wx:for-item="item"
+       wx:key>
+        <view class='cu-tag bg-cyan'>{{item.name}}</view>
+       <view class="cu-tag line-cyan">{{item.useStartTime}}~{{item.useEndTime}}</view>
+      </view>
+      </block>
+      <view class="margin-top">
+      <view wx:if="{{TabCur==0}}">
+       <text>使用小时：</text>
+       <text>{{list.useTime}}</text>
+        <block wx:if="{{list.list.length>0}}">
+       <text 
+       wx:for="{{list.list}}" wx:for-index="index" wx:for-item="item"
+       wx:key
+       > / {{item.useTime}}</text>
+       </block>
+       <text>(小时)</text>
+      </view>
+      <view wx:if="{{TabCur==1}}">
+       <text>保养记录：</text>
+       <text wx:if="{{!list.isClean}}">未清洗</text>
+       <text wx:if="{{list.isClean}}">已清洗</text>
+       <text>/</text>
+       <text wx:if="{{!list.isSelfCheck}}">未自检</text>
+       <text wx:if="{{list.isSelfCheck}}">已自检</text>
+      </view>
+       <view wx:if="{{TabCur==0}}">
+        <text>使用记录：</text>
+        <text wx:if="{{list.useType=='1'}}">良好</text>
+        <text wx:if="{{list.useType=='2'}}">故障</text>
+        <text wx:if="{{list.useType=='3'}}">其他</text>
+       <block wx:if="{{list.list.length>0}}">
+       <block
+       wx:for="{{list.list}}" wx:for-index="index" wx:for-item="item"
+       wx:key
+       >
+        /
+        <text wx:if="{{item.useType=='1'}}">良好</text>
+        <text wx:if="{{item.useType=='2'}}">故障</text>
+        <text wx:if="{{item.useType=='3'}}">其他</text>
+        </block>
+        </block>
+       </view>
+       <view>
+       <text>备注：</text>
+       <text>{{list.desc||'暂无'}}</text>
+       <block wx:if="{{list.list.length>0}}">
+       <text
+        wx:for="{{list.list}}" wx:for-index="index" wx:for-item="item"
+       wx:key
+       > / {{item.desc||'暂无'}}</text>
+       </block>
+       </view>
+      </view>
+    </view>
+  </view>
+  </block>
+  </view>
+</my-scroll>
+</block>
+<block wx:if="{{1==TabCur}}">
+<my-scroll top="5" down="{{filter.getDownOption(1)}}" up="{{filter.getUpOption()}}" binddown="downCallback" bindup="upCallback" bindinit="mescrollInit1" bindemptyclick="emptyClick">
+<view class="cu-timeline">
+<block wx:for="{{tab1.list}}" wx:for-index="index" wx:for-item="list" wx:key>
+  
+   <view class="cu-time" wx:if="{{TabCur==1}}">{{list.inspectionDate}}</view>
+   <view class="cu-time" wx:if="{{TabCur==0}}">{{list.useDate}}</view>
+  <view class="cu-item {{index == 0?'text-blue':''}}">
+    <view class="content {{list.hasError?'redShowdon':''}}">
+      <view class="cu-capsule radius">
+        <view class='cu-tag bg-cyan'>{{list.name}}</view>
+        <view class="cu-tag line-cyan" wx:if="{{TabCur==1}}">{{list.inspectionTime}}</view>
+       <view class="cu-tag line-cyan" wx:if="{{TabCur==0}}">{{list.useStartTime}}~{{list.useEndTime}}</view>
+      </view>
+      <block wx:if="{{list.list.length>0}}">
+       <view class="cu-capsule radius" 
+       wx:for="{{list.list}}" wx:for-index="index" wx:for-item="item"
+       wx:key>
+        <view class='cu-tag bg-cyan'>{{item.name}}</view>
+       <view class="cu-tag line-cyan">{{item.useStartTime}}~{{item.useEndTime}}</view>
+      </view>
+      </block>
+      <view class="margin-top">
+      <view wx:if="{{TabCur==0}}">
+       <text>使用小时：</text>
+       <text>{{list.useTime}}</text>
+        <block wx:if="{{list.list.length>0}}">
+       <text 
+       wx:for="{{list.list}}" wx:for-index="index" wx:for-item="item"
+       wx:key
+       > / {{item.useTime}}</text>
+       </block>
+       <text>(小时)</text>
+      </view>
+      <view wx:if="{{TabCur==1}}">
+       <text>保养记录：</text>
+       <text wx:if="{{!list.isClean}}">未清洗</text>
+       <text wx:if="{{list.isClean}}">已清洗</text>
+       <text>/</text>
+       <text wx:if="{{!list.isSelfCheck}}">未自检</text>
+       <text wx:if="{{list.isSelfCheck}}">已自检</text>
+      </view>
+       <view wx:if="{{TabCur==0}}">
+        <text>使用记录：</text>
+        <text wx:if="{{list.useType=='1'}}">良好</text>
+        <text wx:if="{{list.useType=='2'}}">故障</text>
+        <text wx:if="{{list.useType=='3'}}">其他</text>
+       <block wx:if="{{list.list.length>0}}">
+       <block
+       wx:for="{{list.list}}" wx:for-index="index" wx:for-item="item"
+       wx:key
+       >
+        /
+        <text wx:if="{{item.useType=='1'}}">良好</text>
+        <text wx:if="{{item.useType=='2'}}">故障</text>
+        <text wx:if="{{item.useType=='3'}}">其他</text>
+        </block>
+        </block>
+       </view>
+       <view>
+       <text>备注：</text>
+       <text>{{list.desc||'暂无'}}</text>
+       <block wx:if="{{list.list.length>0}}">
+       <text
+        wx:for="{{list.list}}" wx:for-index="index" wx:for-item="item"
+       wx:key
+       > / {{item.desc||'暂无'}}</text>
+       </block>
+       </view>
+      </view>
+    </view>
+  </view>
+  </block>
+   </view>
+</my-scroll>
+</block>
+
+<!-- <view wx:if="{{list.length ==0}}" class='noData'> 
+
+<text>～ 暂无数据 ～</text>
+</view> -->
+  <view class="action text-gray add-action add-bar" bindtap='add'>
+      <button class="cu-btn cuIcon-add bg-green shadow icon lg"></button>
+    </view>

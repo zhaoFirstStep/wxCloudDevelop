@@ -1,0 +1,39 @@
+/* pages/classification/index/index.wxss */
+.add-bar{
+  position: fixed;
+  /* bottom: calc(100rpx + env(safe-area-inset-bottom) / 2); */
+  /* bottom: 120rpx; */
+  left: 20rpx;
+  z-index: 1024;
+  /* border-radius: 100%; */
+  
+}
+.add-bar button{
+  border-radius: 100%;
+}
+.my-delete{
+  height: 45rpx;
+  width: 60rpx;
+}
+.outer-card{
+  display: flex;
+  flex-flow: row wrap;
+ 
+}
+.outer-card .cu-card{
+   width: 50%;
+}
+.cu-card>.cu-item{
+  margin:20rpx;
+}
+.outer-card .cu-card .cu-tag{
+  padding:0rpx 25rpx;
+} 
+.indexes .outer{
+  bottom:220rpx !important;
+  bottom: calc(220rpx + env(safe-area-inset-bottom)) !important;
+}
+page{
+  height: 100%;
+  overflow-y: auto;
+}

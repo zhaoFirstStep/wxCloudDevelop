@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "basics": "/pages/classification/index/index",
+    "mine": "/pages/mine/index/index"
+  }
+}

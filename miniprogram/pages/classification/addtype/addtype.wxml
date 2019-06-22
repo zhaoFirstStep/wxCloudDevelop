@@ -1,0 +1,42 @@
+<cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">新增</view>
+</cu-custom>
+<form>
+	<view class="cu-form-group">
+		<view class="title required"> 仪器名称</view>
+		<input placeholder="仪器名称" bindinput="input" data-name="typeName"></input>
+	</view>
+  <!-- 上传图片 -->
+  <view class="cu-bar bg-white margin-top">
+		<view class="action required">
+			图片上传
+		</view>
+		<view class="action">
+			{{imgList.length}}/1
+		</view>
+	</view>
+  <view class="cu-form-group">
+		<view class="grid col-4 grid-square flex-sub">
+			<view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+				<image src='{{imgList[index]}}' mode='aspectFill'></image>
+				<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+					<text class="cuIcon-close"></text>
+				</view>
+			</view>
+			<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<1}}">
+				<text class="cuIcon-cameraadd"></text>
+			</view>
+		</view>
+	</view>
+
+  <!-- 描述 -->
+  	<view class="cu-form-group align-start">
+		<view class="title">类别描述</view>
+		<textarea maxlength="200"  bindinput="input" data-name="desc"  placeholder="请输入类别描述"></textarea>
+	</view>
+</form>
+  <view class="cu-bar btn-group">
+    <button class="cu-btn text-green line-green shadow-blur round" catchtap='cancel'>取消</button>
+    <button class="cu-btn bg-blue shadow-blur round" catchtap='saveType'>保存</button>
+  </view>

@@ -1,0 +1,23 @@
+// 支持es4语法
+var filter = {
+  getDownOption: function getDownOption(tabType) {
+    return {
+      auto: tabType == 0, // 第一个mescroll传入true,列表自动加载
+    }
+  },
+  getUpOption: function getUpOption() {
+    return {
+      auto: false,
+      // page: {
+      // 	num: 0, // 当前页码,默认0,回调之前会加1,即callback(page)会从1开始
+      // 	size: 10 // 每页数据的数量
+      // },
+      noMoreSize: 4, //如果列表已无数据,可设置列表的总数量要大于半页才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看; 默认5
+      empty: {
+        btnText: "去添加 +" //按钮,默认""
+      }
+    }
+  },
+}
+// 导出对外暴露的属性
+module.exports = filter

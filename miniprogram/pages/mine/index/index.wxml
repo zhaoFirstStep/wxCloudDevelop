@@ -1,0 +1,56 @@
+<cu-custom bgColor="bg-gradual-pink" isCancel="{{!!myProperty}}" bindmyevent="onMyEvent">
+  <view wx:if="{{!!myProperty}}" slot="cancelText">
+  取消
+  </view>
+  <view slot="content">管理员</view>
+</cu-custom>
+<!-- <view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="输入搜索的关键词" confirm-type="search"></input>
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-pink shadow-blur round">搜索</button>
+  </view>
+</view> -->
+<!-- <view class='cu-tabbar-height'></view> -->
+<!-- <scroll-view scroll-y class="indexes" scroll-into-view="indexes-{{listCurID}}" style="height:calc(100vh - {{CustomBar}}px - 50px)" scroll-with-animation="true" enable-back-to-top="true"> -->
+<my-scroll 
+down="{{downOption}}" binddown="downCallback" up="{{upOption}}" bindup="upCallback" bindinit="mescrollInit" bindemptyclick="emptyClick"
+>
+  <!-- <block wx:for="{{list}}" wx:key> -->
+  <view class="cu-list menu-avatar">
+    <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{list}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" 
+    catchtap='choosePerson'
+    data-id="{{list[index]._id}}"
+    data-name="{{list[index].name}}"
+    data-target="move-box-{{index}}">
+      <view class="cu-avatar round lg" wx:if="list[index].name">{{list[index].shortName}}</view>
+      <view class="content">
+        <view class="text-grey">{{list[index].name}}</view>
+        <view class="text-gray text-sm"> {{list[index].text}}</view>
+        <view class="text-gray text-sm copyText">
+        <text class="text-blue" catchtap='copyText' data-text="{{list[index].username}}/{{list[index].password}}">点击复制用户名和密码</text>
+         </view>
+      </view>
+      <view class="move">
+        <view class="bg-red" catchtap='delPreson' data-id="{{list[index]._id}}">删除</view>
+      </view>
+    </view>
+  </view>
+  <!-- </block> -->
+ 
+   <view class="action text-gray add-action add-bar" bindtap='add'>
+      <button class="cu-btn cuIcon-add bg-green shadow icon lg"></button>
+    </view>
+  </my-scroll>
+  <view class='cu-tabbar-height'></view>
+<!-- </scroll-view> -->
+<!-- 无数据展示 -->
+<!-- <view wx:if="{{list.length ==0}}" class='noData'> 
+<text>～ 暂无数据 ～</text>
+</view> -->
+<!--选择显示-->
+<view hidden="{{hidden}}" class="indexToast">
+  {{listCur}}
+</view>

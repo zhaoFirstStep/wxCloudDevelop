@@ -1,0 +1,47 @@
+/* pages/classification/index/index.wxss */
+.add-bar{
+  position: fixed;
+  /* bottom: calc(100rpx + env(safe-area-inset-bottom) / 2); */
+  bottom: 120rpx;
+  left: 20rpx;
+  z-index: 1024;
+  /* border-radius: 100%; */
+  
+}
+.add-bar button{
+  border-radius: 100%;
+}
+.my-delete{
+  height: 45rpx;
+  width: 60rpx;
+}
+.outer-card{
+  display: flex;
+  flex-flow: row wrap;
+ 
+}
+.outer-card .cu-card{
+   width: calc(100% / 3);
+}
+.cu-card>.cu-item{
+  margin:15rpx;
+}
+.outer-card .cu-card .cu-tag{
+  padding:0rpx 25rpx;
+} 
+.outer-card .cu-card .text-sub{
+    font-size:80rpx;
+    font-weight: 800;
+    height:250rpx;
+    color: #333;
+    /* background-color: #ccc; */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.outer-card .cu-card .bg-shadeBottom{
+  display: flex;
+  justify-content: center;
+  color: red;
+  min-height: 50rpx;
+}

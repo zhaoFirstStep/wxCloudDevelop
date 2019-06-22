@@ -1,0 +1,69 @@
+<cu-custom bgColor="bg-gradual-pink" toHome="true">
+  <view slot="content">仪器分类</view>
+  <!-- <view></view> -->
+</cu-custom>
+<!-- <view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="输入搜索分类关键字" confirm-type="search"></input>
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-pink shadow-blur round">搜索</button>
+  </view>
+</view> -->
+<!-- <view class='cu-tabbar-height'></view> -->
+<!-- <scroll-view class="indexes" scroll-y style="height:calc(100vh - {{CustomBar}}px - 50px)" scroll-with-animation="true" enable-back-to-top="true"> -->
+<my-scroll 
+down="{{downOption}}" binddown="downCallback" up="{{upOption}}" bindup="upCallback" bindinit="mescrollInit" bindemptyclick="emptyClick"
+>
+<view class='outer-card'>
+  <view class="cu-card case {{isCard?'no-card':''}}" wx:for="{{list}}" bindtap="gosubList" wx:key data-id="{{list[index]._id}}" data-title="{{list[index].typeName}}">
+    <view class="cu-item shadow" >
+      <view class="image">
+        <image src="{{list[index].imgUrl}}"  height="400px"></image>
+        <view class="cu-tag bg-blue" wx:if="{{userStatus}}" catchtap="showModal" data-id="{{list[index]._id}}" data-imgid="{{list[index].imgUrl}}"><text class='cuIcon-delete lg text-white'></text></view>
+        <view class="cu-bar bg-shadeBottom">
+          <text class="text-cut">{{list[index].typeName}}</text>
+        </view>
+      </view>
+      <!-- <view class="content flex-sub">
+         <button class="cu-btn block bg-red margin-tb-sm lg round my-delete" catchtap="delete" >
+         </button>
+      </view> -->
+    </view>
+  </view>
+  </view>
+ 
+  <view class="action text-gray add-action add-bar" bindtap='add' wx:if="{{userStatus}}">
+      <button class="cu-btn cuIcon-add bg-green shadow icon lg"></button>
+    </view>
+      <!-- <view class="action text-gray add-action add-bar outer" bindtap='reback'>
+      <button class="cu-btn cuIcon-home bg-green shadow icon lg"></button>
+    </view> -->
+    </my-scroll>
+     <view class='cu-tabbar-height' wx:if="{{userStatus}}"></view>
+<!-- </scroll-view> -->
+<!-- <view wx:if="{{list.length ==0}}" class='noData'> 
+<text>～ 暂无数据 ～</text>
+</view> -->
+<!-- 删除提示 -->
+<view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">删除提示</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      确定删除本条数据？
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+        <button class="cu-btn bg-green margin-left" bindtap="hideModal">确定</button>
+
+      </view>
+    </view>
+  </view>
+</view>

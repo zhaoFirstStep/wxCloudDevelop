@@ -1,0 +1,40 @@
+<cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">新增</view>
+</cu-custom>
+<form>
+	<view class="cu-form-group">
+		<view class="title required">人员姓名</view>
+		<input placeholder="人员姓名" bindinput="input" value='{{name}}' data-name="name"></input>
+	</view>
+  <view class="cu-form-group">
+		<view class="title required">用户名</view>
+		<input placeholder="用户名" value='{{username}}' bindinput="input" data-name="username"></input>
+	</view>
+  	<view class="cu-form-group">
+		<view class="title required">密码</view>
+		<input placeholder="密码" value='{{password}}' bindinput="input" data-name="password"></input>
+	</view>
+  <!-- 描述 -->
+  	<view class="cu-form-group align-start">
+		<view class="title">人员描述</view>
+		<textarea maxlength="100" disabled="{{modalName!=null}}" bindinput="input" value='{{text}}' data-name="text" placeholder="请输入人员描述"></textarea>
+	</view>
+</form>
+  <view class="cu-bar btn-group">
+    <button class="cu-btn text-green line-green shadow-blur round" catchtap='cancel'>取消</button>
+    <button class="cu-btn bg-blue shadow-blur round" catchtap='saveDate'>保存</button>
+  </view>
+<view class="cu-modal {{alert.modelName=='Modal'?'show':''}}" bindtap="hideModal">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">{{alert.title}}</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      {{alert.message}}
+    </view>
+  </view>
+</view>

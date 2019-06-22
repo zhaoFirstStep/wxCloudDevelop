@@ -1,0 +1,6 @@
+/* pages/mine/add/add.wxss */
+.cu-form-group .title {
+  min-width: 150rpx;
+  text-align: justify;
+  text-align-last: justify;
+}

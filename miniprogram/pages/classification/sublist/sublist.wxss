@@ -1,0 +1,28 @@
+/* pages/classification/sublist/sublist.wxss */
+page {
+  padding-top: 100rpx;
+}
+.add-bar{
+  position: fixed;
+  /* bottom: calc(100rpx + env(safe-area-inset-bottom) / 2); */
+  bottom: 120rpx;
+  left: 20rpx;
+  z-index: 1024;
+  /* border-radius: 100%; */
+  
+}
+.redShowdon{
+  box-shadow: 0px 0px 10px red;
+}
+.cu-timeline .cu-time{
+  width:160rpx;
+  
+}
+.cu-capsule{
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+}
+.cu-capsule+.cu-capsule{
+  margin-right: 10rpx;
+  margin-left: 0;
+}

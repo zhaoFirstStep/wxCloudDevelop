@@ -1,0 +1,16 @@
+<basics wx:if="{{PageCur=='basics'&&!modalName}}" id="basics"></basics>
+<mine wx:if="{{PageCur=='mine'}}" id="mine"></mine>
+<view class="cu-bar tabbar bg-white shadow foot" wx:if="{{!modalName}}">
+  <view class="action" bindtap="NavChange" data-cur="basics">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/basics{{PageCur=='basics'?'_cur':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='basics'?'text-green':'text-gray'}}">仪器分类</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="mine">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/about{{PageCur=='mine'?'_cur':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='mine'?'text-green':'text-gray'}}">管理人员</view>
+  </view>
+</view>

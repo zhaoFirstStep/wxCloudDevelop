@@ -1,0 +1,33 @@
+<view class="mescroll-uni" style="padding-top:{{padTop}}px;padding-bottom:{{padBottom}}px" bindtouchstart="touchstartEvent" bindtouchmove="touchmoveEvent" bindtouchend="touchendEvent" bindtouchcancel="touchendEvent">
+		<!-- 下拉加载区域 (部分css样式需写成style,否则编译到浏览器会丢失,坐等HBuilderX优化编译器..)-->
+		<view wx:if="{{optDown}}"  class="mescroll-downwarp {{isDownReset?'mescroll-downwarp-reset':''}}" style="height: {{downHight}}px;position: relative; overflow: hidden; -webkit-transition: {{isDownReset?'height 300ms':''}}">
+			<view class="downwarp-content" style="text-align: center;position: absolute;left: 0;bottom: 0;width: 100%;padding: 20upx 0;">
+				<view  style="transform:rotate({{downRotate}}deg)" class="downwarp-progress {{isDownLoading?'mescroll-rotate':''}}"></view>
+				<view class="downwarp-tip">{{downText}}</view>
+			</view>
+		</view>
+		
+		<!-- 列表内容 -->
+		<slot></slot>
+		
+		<!-- 空布局 -->
+		<view wx:if="{{optEmpty&&isShowEmpty}}" class="mescroll-empty {{optEmpty.fixed?'empty-fixed':''}}" style="z-index:{{optEmpty.zIndex}};top:{{optEmpty.top}}">
+			<image wx:if="{{optEmpty.icon}}" class="empty-icon" src="{{optEmpty.icon}}" mode="widthFix" />
+			<view wx:if="{{optEmpty.tip}}" class="empty-tip">{{optEmpty.tip}}</view>
+			<view wx:if="{{optEmpty.btnText}}" class="empty-btn" catchtap="emptyClick">{{optEmpty.btnText}}</view>
+		</view>
+
+		<!-- 上拉加载区域 -->
+		<view wx:if="{{optUp}}" class="mescroll-upwarp">
+			<!-- 加载中.. -->
+			<block wx:if="{{isUpLoading}}">
+				<view class="upwarp-progress mescroll-rotate"></view>
+				<view class="upwarp-tip">{{optUp.textLoading}}</view>
+			</block>
+			<!-- 无数据 -->
+			<view wx:if="{{isUpNoMore}}" class="upwarp-nodata">{{optUp.textNoMore}}</view>
+		</view>
+
+		<!-- 回到顶部按钮 -->
+		<image wx:if="{{optToTop}}"  class="mescroll-totop {{isShowToTop?'mescroll-fade-in':''}}" src="{{optToTop.src}}" mode="widthFix" catchtap="toTopClick" />
+	</view>

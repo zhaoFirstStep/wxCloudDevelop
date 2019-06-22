@@ -1,0 +1,34 @@
+<view class="cu-modal {{modalName=='Image'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="bg-img" style="background-image: url('https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg');height:200px;">
+
+    </view>
+    <view class="cu-bar bg-white">
+    <button class="cu-btn block bg-blue margin-tb-sm lg round  my-enter" bindgetuserinfo="hideModal" open-type="getUserInfo">进入小程序</button>
+    </view>
+  </view>
+</view>
+<!-- 登陆 -->
+<cu-custom>
+  <view slot="content"></view>
+</cu-custom>
+<view class="pagelogin" wx:if="showPage">
+  <view class="">
+    <view class='title'>EBH仪器管理</view>
+    <!--账号-->
+    <view class="row">
+      <input class="info-input1" placeholder="请输入账号" bindinput="phoneInput" />
+    </view>
+    <view class="line"></view>
+ 
+    <!--密码-->
+    <view class="row">
+      <input class="info-input1" password="true" placeholder="请输入密码" bindinput="passwordInput" bindconfirm='login'/>
+    </view>
+ 
+    <!--按钮-->
+    <view class="">
+      <button class="submit button"  size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="login">登录</button>
+    </view>
+  </view>
+</view>

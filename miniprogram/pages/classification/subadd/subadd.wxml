@@ -1,0 +1,94 @@
+<block wx:if="{{PageCur!='mine'}}">
+<cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">新增</view>
+</cu-custom>
+<form>
+<!--  -->
+	<view class="cu-form-group" wx:if="{{pageDate.logType==1}}">
+		<view class="title">日期</view>
+		<picker mode="date" value="{{fromData.inspectionDate}}" start="2019-01-01"  bindchange="input" data-name="inspectionDate">
+			<view class="picker">
+				{{fromData.inspectionDate}}
+			</view>
+		</picker>
+	</view>
+  <!--  -->
+  	<view class="cu-form-group" wx:if="{{pageDate.logType==1}}">
+		<view class="title">时间</view>
+		<picker mode="time" value="{{fromData.inspectionTime}}" start="00:00" end="23:59" bindchange="input" data-name="inspectionTime">
+			<view class="picker">
+				{{fromData.inspectionTime}}
+			</view>
+		</picker>
+	</view>
+  <!--  -->
+  <view class="cu-form-group" wx:if="{{pageDate.logType==0}}">
+		<view class="title">使用日期</view>
+		<picker mode="date" value="{{fromData.useDate}}" start="2019-01-01"  bindchange="input" data-name="useDate">
+			<view class="picker">
+				{{fromData.useDate}}
+			</view>
+		</picker>
+	</view>
+  <!--  -->
+  <!--  -->
+   	<view class="cu-form-group" wx:if="{{pageDate.logType==0}}">
+		<view class="title">开始时间</view>
+		<picker mode="time" value="{{fromData.useStartTime}}" start="00:00" end="23:59" bindchange="input" data-name="useStartTime">
+			<view class="picker">
+				{{fromData.useStartTime}}
+			</view>
+		</picker>
+	</view>
+  <!--  -->
+  <!--  -->
+     	<view class="cu-form-group" wx:if="{{pageDate.logType==0}}">
+		<view class="title">结束时间</view>
+		<picker mode="time" value="{{fromData.useEndTime}}" start="00:00" end="23:59"  bindchange="input" data-name="useEndTime">
+			<view class="picker">
+				{{fromData.useEndTime}}
+			</view>
+		</picker>
+	</view>
+  <!--  -->
+  <view wx:if="{{pageDate.logType==1}}">
+  <view class='margin-top'>保养记录</view>
+  <view class="cu-form-group">
+		<view class="title">是否清洗</view>
+		<switch bindchange='switchChange' data-name='isClean' checked="{{fromData.isClean}}"></switch>
+	</view>
+
+   <view class="cu-form-group">
+		<view class="title">是否自检</view>
+		<switch bindchange='switchChange' data-name="isSelfCheck" checked="{{fromData.isSelfCheck}}"></switch>
+	</view>
+  </view>
+  <view wx:if="{{pageDate.logType==0}}">
+  <view class='margin-top'>使用记录</view>
+  <radio-group class="cu-form-group" bindchange="input" data-name="useType">
+  	<view class="cu-form-group" style='border-top:0;'
+    wx:for="{{useType}}" wx:key>
+			<view class="title">{{useType[index].name}}</view>
+			<radio class="radio" checked="{{useType[index].value == fromData.useType}}" value='{{useType[index].value}}'></radio>
+		</view>
+    </radio-group>
+    </view>
+   <view class='margin-top'  wx:if="{{pageDate.logType==1}}">维修记录</view>
+	<view class="cu-form-group">
+		<view class="title">签名</view>
+    <view class="picker pickname">{{fromData.name}}</view>
+		<!-- <button class="cu-btn bg-green shadow" bindtap='choosePerson'>选择</button> -->
+	</view>
+  <!-- 描述 -->
+  	<view class="cu-form-group align-start" >
+		<view class="title">描述</view>
+		<textarea maxlength="200" disabled="{{modalName!=null}}" bindinput="input" data-name="desc" placeholder="请输入类别描述" value='{{fromData.desc}}'></textarea>
+	</view>
+</form>
+  <view class="cu-bar btn-group">
+    <button class="cu-btn text-green line-green shadow-blur round" catchtap='cancel'>取消</button>
+    <button class="cu-btn bg-blue shadow-blur round" catchtap='saveResultData'>保存</button>
+  </view>
+</block>
+  <mine wx:if="{{PageCur=='mine'}}" bindmyevent="onMyEvent"    myProperty="choosePerson"></mine>
