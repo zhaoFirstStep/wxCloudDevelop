@@ -9,14 +9,14 @@ Page({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    TabCur:0,
+    TabCur: 0,
     tab0: { mescroll: null, isListInit: false, scrollY: 0, list: [] },//使用
     tab1: { mescroll: null, isListInit: false, scrollY: 0, list: [] },//保养/维修
-    pageDate:{},//页面参数
-    allLoad:false,
-    skip:0,//分页参数
+    pageDate: {},//页面参数
+    allLoad: false,
+    skip: 0,//分页参数
     limit: perPage,//最大参数
-    scrollLeft:0
+    scrollLeft: 0
   },
 
   /**
@@ -31,7 +31,7 @@ Page({
 
   tabSelect(e) {
     let type = e.currentTarget.dataset.id;
-    
+
     if (this.data.TabCur !== type) {
       var curTab = this.getTabData(this.data.TabCur);//当前tab
       var newTab = this.getTabData(type);//准备切换过去的tab
@@ -44,8 +44,10 @@ Page({
         allLoad: false,
         scrollLeft: (type - 1) * 60
       })
+      // console.log(newTab)
       if (!newTab.isListInit) {
         // 如果列表没有初始化过,则初始化
+        console.log(11)
         newTab.mescroll.resetUpScroll();
       } else {
         //记录当前滚动条的位置
@@ -59,9 +61,6 @@ Page({
         }, 30)
       }
     }
-    if (e.currentTarget.dataset.id){
-       this.getDataList();
-    }
   },
 
   add() {
@@ -70,7 +69,7 @@ Page({
     // logType
     // parentId
     wx.navigateTo({
-      url: '../subadd/subadd?parentId=' + data.parentId + '&subClassId=' + data.subClassId +'&logType='+this.data.TabCur,
+      url: '../subadd/subadd?parentId=' + data.parentId + '&subClassId=' + data.subClassId + '&logType=' + this.data.TabCur,
     })
   },
   /**
@@ -140,7 +139,7 @@ Page({
     this.getDataList(mescroll);
   },
   emptyClick: function (mescroll) {
-     this.add();
+    this.add();
   },
   // 获取菜单对应的数据
   getTabData(tabType) {
@@ -176,7 +175,7 @@ Page({
     data.mescroll && data.mescroll.resetUpScroll();
   },
 
-  getDataList: function (mescroll){
+  getDataList: function (mescroll) {
     // debugger
     const db = wx.cloud.database();
     // wx.showLoading({
@@ -184,48 +183,45 @@ Page({
     // })
     // console.log(111);6
     let data = this.data.pageDate;
-    let logType = this.data.TabCur+'';
+    let logType = this.data.TabCur + '';
     let orderBy = 'creatTime';
-    if(this.data.TabCur == 0){
+    if (this.data.TabCur == 0) {
       orderBy = 'useDate';
     }
-    // console.log(logType, data.subClassId);
-    db.collection('record').orderBy(orderBy,'desc').skip(this.data.skip).limit(this.data.limit).where({
-      subClassId:data.subClassId,
+    // console.log(mescroll);
+    // console.log(this.data['tab' + mescroll.tabType].isListInit)
+    db.collection('record').orderBy(orderBy, 'desc').skip(this.data.skip).limit(this.data.limit).where({
+      subClassId: data.subClassId,
       logType: logType
     }).get({
       success: res => {
         // 在返回结果中会包含新创建的记录的 _id
         // wx.hideLoading();
-        if (res.data && res.data.length>0){
-          res.data.forEach(item=>{
-            let date = item.useDate.replace(/-/g,'/')
+        if (res.data && res.data.length > 0) {
+          res.data.forEach(item => {
+            let date = item.useDate.replace(/-/g, '/')
             let startTime = new Date(`${date} ${item.useEndTime}`);
             let endTime = new Date(`${date} ${item.useStartTime}`);
-              item.useTime = parseFloat((startTime-endTime)/(60*60*1000)).toFixed(2);
+            item.useTime = parseFloat((startTime - endTime) / (60 * 60 * 1000)).toFixed(2);
           })
           this.data['tab' + mescroll.tabType].isListInit = true;
+          // debugger
+
           if (mescroll.num == 1) this.data['tab' + mescroll.tabType].list = [];
           // console.log(res.data);
-          if(this.data.TabCur == 0){
+          if (this.data.TabCur == 0) {
             res.data = this.proceessAdd(res.data);
           }
         }
         // console.log(res.data);
-       
+
         this.data['tab' + mescroll.tabType].list = this.data['tab' + mescroll.tabType].list.concat(res.data);
         mescroll.endSuccess(res.data.length);
-        // if(res.data&&res.data.length>0){
-        //   res.data = this.data.list.concat(res.data);
-        // }else{
-        //   res.data = this.data.list;
-        //   this.data.allLoad = true;
-        // }
-        if (mescroll.tabType == 0){
-            this.setData({
-              tab0: this.data['tab' + mescroll.tabType] 
-            })
-        } else if (mescroll.tabType == 1){
+        if (mescroll.tabType == 0) {
+          this.setData({
+            tab0: this.data['tab' + mescroll.tabType]
+          })
+        } else if (mescroll.tabType == 1) {
           this.setData({
             tab1: this.data['tab' + mescroll.tabType]
           })
@@ -248,23 +244,23 @@ Page({
     })
   },
   /**处理合并 */
-  proceessAdd(data){
-    let firstDate = this.data.tab0.list.pop(),tempObj = null;
-    let length = data.length,newList = [];
-    var firstday = null,index=0;
-    if(firstDate && firstDate.list){
+  proceessAdd(data) {
+    let firstDate = this.data.tab0.list.pop(), tempObj = null;
+    let length = data.length, newList = [];
+    var firstday = null, index = 0;
+    if (firstDate && firstDate.list) {
       firstday = firstDate;
-    }else{
+    } else {
       firstday = data[index];
       index = index + 1;
     }
     firstday.list = [];
     let haslast = false;
     // debugger
-    while (index<length){
-      if (firstday.useDate === data[index].useDate){
+    while (index < length) {
+      if (firstday.useDate === data[index].useDate) {
         firstday.list.push(data[index]);
-      }else{
+      } else {
         newList.push(firstday);
         // tempObj = firstday;
         firstday = data[index];
@@ -274,11 +270,11 @@ Page({
       index++;
     }
     // if (haslast || length === 1){
-      newList.push(firstday);
+    newList.push(firstday);
     // }
-   
+
     // console.log(newList);
-    newList.forEach(item=>{
+    newList.forEach(item => {
       item.hasError = this.hasError(item);
     })
     // debugger
@@ -294,7 +290,7 @@ Page({
   hasError(data) {
     let list = data.list.filter(item => item.useType == '2');
     // console.log(data);
-    return data.useType == '2' || list.length>0
+    return data.useType == '2' || list.length > 0
   },
   /**
    * 生命周期函数--监听页面卸载

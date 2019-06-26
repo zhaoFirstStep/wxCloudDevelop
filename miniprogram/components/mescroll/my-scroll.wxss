@@ -191,3 +191,20 @@
 		opacity: 0;
 	}
 }
+.download-tip{
+		z-index: 900;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 60rpx;
+		line-height: 60rpx;
+		font-size: 24rpx;
+		text-align: center;
+		color: white;
+		-webkit-transition: display 300ms;
+		transition: display 300ms;
+	}
+  .mescroll-uni{
+    position: relative;
+  }

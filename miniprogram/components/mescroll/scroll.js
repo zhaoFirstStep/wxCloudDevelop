@@ -364,11 +364,13 @@ MeScroll.prototype.showNoMore = function () {
 
 /* 隐藏上拉区域**/
 MeScroll.prototype.hideUpScroll = function () {
+  // console.log(666)
   this.optUp.hideUpScroll && this.optUp.hideUpScroll(this); // 回调
 }
 
 /* 结束上拉加载 */
 MeScroll.prototype.endUpScroll = function (isShowNoMore) {
+  // console.log(111);
   if (isShowNoMore != null) { // isShowNoMore=null,不处理下拉状态,下拉刷新的时候调用
     if (isShowNoMore) {
       this.showNoMore(); // isShowNoMore=true,显示无更多数据
@@ -377,6 +379,7 @@ MeScroll.prototype.endUpScroll = function (isShowNoMore) {
     }
   }
   this.isUpScrolling = false; // 标记结束上拉加载
+  this.hideUpScroll(); // isShowNoMore=false,隐藏上拉加载
 }
 
 /* 重置上拉加载列表为第一页

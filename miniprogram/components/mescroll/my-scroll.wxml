@@ -1,5 +1,6 @@
 <view class="mescroll-uni" style="padding-top:{{padTop}}px;padding-bottom:{{padBottom}}px" bindtouchstart="touchstartEvent" bindtouchmove="touchmoveEvent" bindtouchend="touchendEvent" bindtouchcancel="touchendEvent">
-		<!-- 下拉加载区域 (部分css样式需写成style,否则编译到浏览器会丢失,坐等HBuilderX优化编译器..)-->
+<view style="display:{{topTip}}" class="download-tip {{updateCalss}}">{{updateText}}</view>
+
 		<view wx:if="{{optDown}}"  class="mescroll-downwarp {{isDownReset?'mescroll-downwarp-reset':''}}" style="height: {{downHight}}px;position: relative; overflow: hidden; -webkit-transition: {{isDownReset?'height 300ms':''}}">
 			<view class="downwarp-content" style="text-align: center;position: absolute;left: 0;bottom: 0;width: 100%;padding: 20upx 0;">
 				<view  style="transform:rotate({{downRotate}}deg)" class="downwarp-progress {{isDownLoading?'mescroll-rotate':''}}"></view>

@@ -17,27 +17,35 @@ Component({
   properties: {
     down: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     up: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     top: {
       type: [Number, String]
     },
     bottom: {
       type: [Number, String]
+    },
+    updateText: {
+      type: String,
+      value: '数据已更新'
+    },
+    updateCalss: {
+      type: String,
+      value: 'bg-gradual-pink'
     }
   },
   /**
    * 监听属性
    */
-  observers:{
-    'mescroll.optDown':function(down){
+  observers: {
+    'mescroll.optDown': function (down) {
       // let data = 
       // return down || null;
-      console.log(666);
+      // console.log(666);
       this.setData({
         optDown: down || null
       })
@@ -49,26 +57,26 @@ Component({
       })
       // return this.data.mescroll ? this.data.mescroll.optDown : null;
     },
-    'mescroll.optUp.empty': function(top) {
+    'mescroll.optUp.empty': function (top) {
       // console.log(top);
       this.setData({
         optEmpty: top || null
       })
       // return this.data.mescroll ? this.data.mescroll.optDown : null;
     },
-    'mescroll.optUp.toTop': function(bottom) {
+    'mescroll.optUp.toTop': function (bottom) {
       // console.log(bottom)
       this.setData({
         optToTop: bottom || null
       })
       // return this.data.mescroll ? this.data.mescroll.optDown : null;
     },
-    'top':function(top) {
+    'top': function (top) {
       this.setData({
         padTop: top || null
       })
     },
-    'bottom': function(bottom) {
+    'bottom': function (bottom) {
       this.setData({
         padBottom: bottom || null
       })
@@ -96,7 +104,9 @@ Component({
     isUpLoading: false, // 上拉加载: 是否显示 "加载中..."
     isUpNoMore: false, // 上拉加载: 是否显示 "-- END --"
     isShowEmpty: false, // 是否显示空布局
-    isShowToTop: false // 是否显示回到顶部按钮
+    isShowToTop: false, // 是否显示回到顶部按钮
+    topTip: 'none',
+    timeOutFunc: null
   },
   lifetimes: {
     attached() {
@@ -111,8 +121,8 @@ Component({
             // vm.isDownLoading = false; // 不显示加载中
             // vm.downText = mescroll.optDown.textInOffset; // 设置文本
             vm.setData({
-              isDownReset:false,
-              isDownLoading:false,
+              isDownReset: false,
+              isDownLoading: false,
               downText: mescroll.optDown.textInOffset
             })
           },
@@ -143,7 +153,7 @@ Component({
             // vm.isDownLoading = true;// 显示加载中
             // vm.downHight = downHight; // 设置下拉区域的高度 (自定义mescroll组件时,此行不可删)
             // vm.downText = mescroll.optDown.textLoading; // 设置文本
-            console.log(344);
+            // console.log(344);
             vm.setData({
               isDownReset: true,
               isDownLoading: true,
@@ -153,9 +163,9 @@ Component({
           },
           endDownScroll(mescroll) {
             vm.setData({
-              isDownReset:true,
-              isDownLoading:false,
-              downHight:0
+              isDownReset: true,
+              isDownLoading: false,
+              downHight: 0
             })
             // vm.isDownReset = true;// 重置高度 (自定义mescroll组件时,此行不可删)
             // vm.isDownLoading = false; // 不显示加载中
@@ -189,9 +199,22 @@ Component({
           },
           // 隐藏上拉加载的回调
           hideUpScroll() {
+            if (vm.timeOutFunc) {
+              clearTimeout(vm.timeOutFunc);
+              vm.timeOutFunc = null;
+            }
             vm.setData({
-              isUpLoading:false,
-              isUpNoMore:false
+              topTip: 'inline-block'
+            })
+            // console.log('刷新了');
+            vm.timeOutFunc = setTimeout(() => {
+              vm.setData({
+                topTip: 'none'
+              })
+            }, 500)
+            vm.setData({
+              isUpLoading: false,
+              isUpNoMore: false
             })
             // vm.isUpLoading = false;
             // vm.isUpNoMore = false;
@@ -199,7 +222,7 @@ Component({
           // 空布局
           empty: {
             onShow(isShow) { // 显示隐藏的回调
-              if (vm.isShowEmpty != isShow) 
+              if (vm.isShowEmpty != isShow)
                 vm.setData({
                   isShowEmpty: isShow
                 })
@@ -209,15 +232,16 @@ Component({
           // 回到顶部
           toTop: {
             onShow(isShow) { // 显示隐藏的回调
-            // console.log(777)
-              if (vm.data.isShowToTop != isShow) 
-              vm.setData({
-                isShowToTop: isShow
-              })
+              // console.log(777)
+              if (vm.data.isShowToTop != isShow)
+                vm.setData({
+                  isShowToTop: isShow
+                })
             }
           },
           // 派发上拉加载的回调
           callback: function (mescroll) {
+            // console.log(111);
             vm.triggerEvent('up', mescroll)
           }
         }
@@ -229,7 +253,7 @@ Component({
         'up': vm.data.up ? JSON.parse(JSON.stringify(vm.data.up)) : vm.data.up // 深拷贝,避免对props的影响
       }, diyOption); // 混入具体界面的配置
       // debugger
-      console.log(vm.data.up);
+      // console.log(vm.data.up);
       // 初始化MeScroll对象
       // console.log();
       vm.setData({
@@ -238,7 +262,7 @@ Component({
       // vm.data.mescroll = new MeScroll(myOption);
       // init回调mescroll对象
       vm.triggerEvent('init', vm.data.mescroll);
-     
+
       // 设置mescroll实例对象的body高度,使down的bottomOffset生效
       wx.getSystemInfo({
         success(res) {
@@ -247,7 +271,7 @@ Component({
       });
     },
     detached() {
-      
+
     },
   },
   /**
@@ -273,7 +297,7 @@ Component({
     // 点击回到顶部的按钮回调
     toTopClick() {
       this.setData({
-        isShowToTop:false
+        isShowToTop: false
       })
       // this.isShowToTop = false; // 回到顶部按钮需要先隐藏,再执行回到顶部,避免闪动
       wx.pageScrollTo({ // 执行回到顶部

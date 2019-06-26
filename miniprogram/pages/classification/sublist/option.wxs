@@ -2,7 +2,7 @@
 var filter = {
   getDownOption: function getDownOption(tabType) {
     return {
-      auto: tabType == 0, // 第一个mescroll传入true,列表自动加载
+      auto: false, // 第一个mescroll传入true,列表自动加载
     }
   },
   getUpOption: function getUpOption() {
