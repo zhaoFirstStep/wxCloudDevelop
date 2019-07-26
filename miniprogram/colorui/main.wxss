@@ -2077,7 +2077,7 @@ button.icon.lg {
 }
 
 .cu-timeline>.cu-item>.content {
-	padding: 30rpx;
+	padding: 30rpx 20rpx;
 	border-radius: 6rpx;
 	display: block;
 	line-height: 1.6;
